@@ -7,7 +7,7 @@ class Quote(models.Model):
     votes = models.BigIntegerField()
 
     def __str__(self):
-        return f"On {self.post_on} by{self.author}"
+        return f"On {self.post_on} by {self.author}"
 
 class Comment(models.Model):
     quote = models.ForeignKey(Quote,on_delete=models.CASCADE)

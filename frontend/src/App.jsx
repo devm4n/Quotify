@@ -1,42 +1,13 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Quotes from "./components/Quotes";
+import { CommentContext } from "./contexts/CommentContext";
 
 function App() {
-  const [commentData,SetCommentData]=useState({})
-  const [quoteData, setQuoteData] = useState({});
-
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.get("http://127.0.0.1:8000/api/quote/");
-      // console.log(response.data[0]);
-      setQuoteData(response.data);
-    };
-    const getComment = async ()=>{
-      const response = await axios.get("http://127.0.0.1:8000/api/comment/")
-      SetCommentData(response.data)
-    }
-
-    getData();
-    getComment();
-  }, []);
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  const style = document.createElement("style");
-  style.innerHTML = `
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  html {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;     /* Firefox */
-  }
-`;
-  document.head.appendChild(style);
-  // Helper function to detect mobile devices
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
+  const {commentData,quoteData} = useContext(CommentContext)
+  console.log(commentData,quoteData)
   return (
     <>
       <div className="main bg-zinc-200 pb-12">

@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from .serializers import QuoteSerializer,CommentSerializer
 from .models import Quote,Comment
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-class QuoteViewset(ModelViewSet):
-    queryset = Quote.objects.all()
-    serializer_class = QuoteSerializer
+class QuoteViewSet(APIView):
+    def get(self,req):
+        quote = Quote.objects.all()
+        serializer = QuoteSerializer(quote,many=True)
+        return Response (serializer.data)
 
-class CommentViewSet(ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+class CommentViewSet(APIView):
+    def get(self,req):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments,many=True)
+        return Response (serializer.data)
